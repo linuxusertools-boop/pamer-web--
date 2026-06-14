@@ -1,0 +1,46 @@
+===================================================================
+                  kevsoft-id DEVELOPER LICENSE
+===================================================================
+Copyright (c) 2025-2026 Kevin (kevsoft-id). All Rights Reserved.
+Origin: Indonesia
+-------------------------------------------------------------------
+
+By utilizing, modifying, or distributing this software, API, or 
+associated documentation (the "Software"), you hereby agree to the 
+following terms and conditions:
+
+1. GRANT OF LICENSE
+   Permission is hereby granted, free of charge, to any person 
+   obtaining a copy of this Software, to use and modify the Software 
+   for personal, educational, or non-commercial development purposes, 
+   subject to the restrictions outlined below.
+
+2. RESTRICTIONS & ATTRIBUTION
+   * The original copyright notice, developer name (Kevin/kevsoft-id), 
+     and this permission notice MUST be included in all copies or 
+     substantial portions of the Software.
+   * You may not claim ownership of the core logic, architecture, 
+     or proprietary algorithms embedded within this Software.
+   * Commercial redistribution or selling the Software as a standalone 
+     product without prior written consent from the Author is strictly 
+     prohibited.
+
+3. MODIFICATIONS
+   Any modified versions of the Software must be clearly marked as 
+   derivative works and must not misrepresent the original branding 
+   of kevsoft-id.
+
+4. WARRANTY & LIABILITY
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY 
+   CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+   TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
+   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-------------------------------------------------------------------
+Licensed by: Kevin (kevsoft-id)
+Established: 2025
+Country: Indonesia
+===================================================================

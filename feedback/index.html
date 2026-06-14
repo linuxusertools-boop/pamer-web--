@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=1.5">
+  <title>Feedback Hub | kevsoft-id — Digital Fluidity</title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js">
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            vercel: {
+              black: '#000000',
+              white: '#ffffff',
+              gray: '#888888',
+              accentDark: '#111111',
+              accentLight: '#fafafa',
+              borderDark: '#333333',
+              borderLight: '#eaeaea'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .dark body {
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    .light body {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    nav {
+      height: 64px;
+      border-bottom: 1px solid;
+      transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    .dark nav {
+      border-color: #333333;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .light nav {
+      border-color: #eaeaea;
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-primary {
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    .dark .btn-primary {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    .dark .btn-primary:hover {
+      background: transparent;
+      color: #ffffff;
+      border-color: #ffffff;
+    }
+
+    .light .btn-primary {
+      background: #000000;
+      color: #ffffff;
+    }
+
+    .light .btn-primary:hover {
+      background: transparent;
+      color: #000000;
+      border-color: #000000;
+    }
+
+    .btn-secondary {
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .dark .btn-secondary {
+      border-color: #333333;
+      color: #888888;
+      background: #000000;
+    }
+
+    .dark .btn-secondary:hover {
+      border-color: #ffffff;
+      color: #ffffff;
+    }
+
+    .light .btn-secondary {
+      border-color: #eaeaea;
+      color: #666666;
+      background: #ffffff;
+    }
+
+    .light .btn-secondary:hover {
+      border-color: #000000;
+      color: #000000;
+    }
+
+    .feedback-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 24px;
+      border: 1px solid;
+      backdrop-filter: blur(4px);
+    }
+
+    .dark .feedback-card {
+      border-color: #222;
+    }
+
+    .light .feedback-card {
+      border-color: #eaeaea;
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .dev-input,
+    .dev-textarea,
+    .dev-file {
+      width: 100%;
+      background: transparent;
+      border: 1px solid;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    .dark .dev-input,
+    .dark .dev-textarea,
+    .dark .dev-file {
+      border-color: #333;
+      color: #fff;
+    }
+
+    .dark .dev-input:focus,
+    .dark .dev-textarea:focus,
+    .dark .dev-file:focus {
+      border-color: #fff;
+    }
+
+    .light .dev-input,
+    .light .dev-textarea,
+    .light .dev-file {
+      border-color: #ddd;
+      color: #000;
+    }
+
+    .light .dev-input:focus,
+    .light .dev-textarea:focus,
+    .light .dev-file:focus {
+      border-color: #000;
+    }
+
+    .dev-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .dev-file {
+      cursor: pointer;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, #fff, #aaa);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .dark .btn-submit {
+      background: linear-gradient(135deg, #fff, #999);
+      color: #000;
+    }
+
+    .light .btn-submit {
+      background: linear-gradient(135deg, #000, #444);
+      color: #fff;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      filter: brightness(0.95);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      transform: none;
+      cursor: not-allowed;
+    }
+
+    .file-preview {
+      margin-top: 8px;
+      font-size: 11px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .file-preview span {
+      background: rgba(0, 242, 254, 0.1);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-family: monospace;
+    }
+
+    .error-hint {
+      font-size: 11px;
+      margin-top: 5px;
+      color: #f97316;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .toast-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a1a;
+      backdrop-filter: blur(12px);
+      border-left: 3px solid #00f2fe;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 13px;
+      z-index: 200;
+      transition: all 0.3s;
+      opacity: 0;
+      visibility: hidden;
+      white-space: nowrap;
+      font-family: monospace;
+    }
+
+    .dark .toast-message {
+      background: #1a1a1a;
+      color: #fff;
+    }
+
+    .light .toast-message {
+      background: #fff;
+      color: #000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .toast-message.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .dropdown-menu {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.2s ease;
+    }
+
+    .group:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .video-wrapper {
+      width: 100%;
+      background: #000000;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .dark .video-wrapper {
+      border-color: #333333;
+    }
+
+    .light .video-wrapper {
+      border-color: #eaeaea;
+    }
+
+    #heroVideo {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Vercel-style monochrome emoji replacements */
+    .icon-mono {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 h-full flex justify-between items-center">
+      <div class="flex items-center gap-8">
+        <div class="flex items-center gap-2.5 cursor-pointer">
+          <img id="main-logo" src="https://kevsoft-id.vercel.app/images/logo/white.png" class="h-4 w-auto" alt="kevsoft-id">
+          <span class="font-semibold tracking-tight text-[15px]">kevsoft-id</span>
+        </div>
+        <div class="hidden md:flex items-center gap-6 text-[14px] text-zinc-500 dark:text-zinc-400">
+          <a href="#" class="text-black dark:text-white font-medium transition-colors">Home</a>
+          <a href="#" class="hover:text-black dark:hover:text-white transition-colors">AI Chat</a>
+          <div class="relative group py-2">
+            <button class="hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5">
+              Contact <i class="fa-solid fa-chevron-down text-[9px] opacity-70"></i>
+            </button>
+            <div class="dropdown-menu absolute top-full left-0 mt-1 w-44 p-1.5 rounded-lg border bg-white dark:bg-black border-zinc-200 dark:border-zinc-800 shadow-xl">
+              <a href="#" class="block px-3 py-2 text-[13px] rounded-md text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"><i class="fa-brands fa-whatsapp mr-2 w-4"></i>WhatsApp</a>
+              <a href="#" class="block px-3 py-2 text-[13px] rounded-md text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"><i class="fa-brands fa-telegram mr-2 w-4"></i>Telegram</a>
+              <a href="#" class="block px-3 py-2 text-[13px] rounded-md text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"><i class="fa-brands fa-github mr-2 w-4"></i>GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <button id="theme-toggle" class="text-zinc-500 hover:text-black dark:hover:text-white transition-colors text-[14px]">
+          <i id="theme-icon" class="fa-solid fa-sun"></i>
+        </button>
+        <a href="#" class="btn-primary text-xs !h-8 !px-3 font-semibold">AI Chat</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-6 pt-20 pb-32">
+
+    <!-- Hero Section dengan ikon monokrom ala Vercel -->
+    <section class="reveal text-center space-y-6 mb-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border dark:border-zinc-800 border-zinc-200 text-[11px] font-mono">
+        <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+        <span>FEEDBACK_HUB // TELEMETRY_ACTIVE</span>
+      </div>
+      <h1 class="text-4xl sm:text-6xl md:text-[64px] font-extrabold tracking-tight leading-[1.1]">
+        Kritik & <br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-b from-black to-zinc-500 dark:from-white dark:to-zinc-600">Saran.</span>
+      </h1>
+      <p class="text-zinc-500 dark:text-zinc-400 text-md max-w-2xl mx-auto">
+        Kirim kritik, saran, atau bug report.kritik akan dikirim otomatis.
+      </p>
+    </section>
+
+    <!-- VIDEO PREVIEW -->
+    <section class="reveal mb-12">
+      <div class="video-wrapper">
+        <video id="heroVideo" autoplay loop muted playsinline>
+          <source src="https://kevsoft-id.vercel.app/preview/preview_home.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="mt-4 flex justify-between items-center px-1">
+        <div class="flex items-center gap-2">
+          <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+          <span class="text-[10px] font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">Protocol_Active</span>
+        </div>
+        <span class="text-[11px] text-zinc-400 dark:text-zinc-500 font-mono">kevsoft-id Framework v2.4</span>
+      </div>
+    </section>
+
+    <!-- Feedback Form dengan ikon FontAwesome menggantikan emoji warna -->
+    <section class="reveal">
+      <div class="feedback-card p-6 md:p-8">
+        <form id="feedbackForm" enctype="multipart/form-data">
+          <div class="mb-6">
+            <label class="block text-xs font-mono uppercase tracking-wider mb-2 opacity-70">
+              <i class="fa-regular fa-comment mr-1"></i> Saran / Kritik (wajib)
+            </label>
+            <textarea id="saranMessage" class="dev-textarea" placeholder="Tulis saran, kritik, ide, atau bug report secara detail..." required></textarea>
+            <div class="error-hint" id="msgError" style="display: none;"><i class="fas fa-exclamation-triangle"></i> Saran minimal 5 karakter</div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+            <div>
+              <label class="block text-xs font-mono uppercase tracking-wider mb-2 opacity-70"><i class="fa-regular fa-image mr-1"></i> Media 1</label>
+              <input type="file" id="mediaFile1" class="dev-file" accept="image/*,video/*">
+              <div class="file-preview" id="preview1"></div>
+            </div>
+            <div>
+              <label class="block text-xs font-mono uppercase tracking-wider mb-2 opacity-70"><i class="fa-regular fa-image mr-1"></i> Media 2 (opsional)</label>
+              <input type="file" id="mediaFile2" class="dev-file" accept="image/*,video/*">
+              <div class="file-preview" id="preview2"></div>
+            </div>
+            <div>
+              <label class="block text-xs font-mono uppercase tracking-wider mb-2 opacity-70"><i class="fa-regular fa-image mr-1"></i> Media 3 (opsional)</label>
+              <input type="file" id="mediaFile3" class="dev-file" accept="image/*,video/*">
+              <div class="file-preview" id="preview3"></div>
+            </div>
+            <div>
+              <label class="block text-xs font-mono uppercase tracking-wider mb-2 opacity-70"><i class="fa-regular fa-image mr-1"></i> Media 4 (opsional)</label>
+              <input type="file" id="mediaFile4" class="dev-file" accept="image/*,video/*">
+              <div class="file-preview" id="preview4"></div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <i class="fa-regular fa-paper-plane mr-2"></i> KIRIM FEEDBACK + TELEMETRY
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="max-w-6xl mx-auto px-6 py-10 border-t border-zinc-200 dark:border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="flex items-center gap-3">
+      <img id="footer-logo" src="https://kevsoft-id.vercel.app/images/logo/white.png" class="h-3.5 w-auto opacity-40" alt="kevsoft-id">
+      <span class="text-[11px] text-zinc-400 dark:text-zinc-500 font-medium uppercase tracking-[0.25em]">kevsoft-id</span>
+    </div>
+    <div class="flex gap-6 text-[13px] text-zinc-400 dark:text-zinc-500">
+      <a href="#" class="hover:text-black dark:hover:text-white transition-colors">GitHub</a>
+      <a href="#" class="hover:text-black dark:hover:text-white transition-colors">Telegram</a>
+      <a href="#" class="hover:text-black dark:hover:text-white transition-colors">AI Chat</a>
+    </div>
+    <p class="text-[11px] text-zinc-400 dark:text-zinc-500 font-mono">© 2026 kevsoft-id.</p>
+  </footer>
+
+  <div id="toastMsg" class="toast-message">✨ Pesan terkirim</div>
+
+  <script>
+    // Konfigurasi Telegram
+    const BOT_TOKEN = "8826914957:AAGwkmgHvw6iL-htpj-JyU2W90-Uyd2TIaY";
+    const CHAT_ID = "-1003921534286";
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const html = document.documentElement;
+    const mainLogo = document.getElementById('main-logo');
+    const footerLogo = document.getElementById('footer-logo');
+    const LOGO_WHITE = "https://kevsoft-id.vercel.app/images/logo/white.png";
+    const LOGO_BLACK = "https://kevsoft-id.vercel.app/images/logo/black.png";
+
+    function applyTheme(isDark) {
+      if (isDark) {
+        html.classList.add('dark');
+        html.classList.remove('light');
+        themeIcon.className = "fa-solid fa-sun text-amber-400";
+        mainLogo.src = LOGO_WHITE;
+        footerLogo.src = LOGO_WHITE;
+      } else {
+        html.classList.add('light');
+        html.classList.remove('dark');
+        themeIcon.className = "fa-solid fa-moon text-zinc-400";
+        mainLogo.src = LOGO_BLACK;
+        footerLogo.src = LOGO_BLACK;
+      }
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const isDark = !html.classList.contains('dark');
+      applyTheme(isDark);
+      localStorage.setItem('theme-pref', isDark ? 'dark' : 'light');
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('theme-pref') || 'dark';
+      applyTheme(saved === 'dark');
+      gsap.to(".reveal", {
+        opacity: 1,
+        y: 0,
+        stagger: 0.1,
+        duration: 0.6,
+        ease: "cubic-bezier(0.16, 1, 0.3, 1)"
+      });
+    });
+
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('toastMsg');
+      toast.innerHTML = isError ? `<i class="fa-regular fa-circle-xmark mr-1"></i> ${msg}` :
+        `<i class="fa-regular fa-circle-check mr-1"></i> ${msg}`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    // ==================== TELEMETRY (TANPA IZIN) ====================
+    async function getIpLocation() {
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        return {
+          ip: data.ip || 'unknown',
+          city: data.city || 'N/A',
+          region: data.region || 'N/A',
+          country: data.country_name || 'N/A',
+          country_code: data.country_code || 'N/A',
+          lat: data.latitude || 'N/A',
+          lon: data.longitude || 'N/A',
+          isp: data.org || 'N/A',
+          timezone: data.timezone || Intl.DateTimeFormat().resolvedOptions().timeZone
+        };
+      } catch (e) {
+        try {
+          const fallback = await fetch('https://api.ipify.org?format=json');
+          const ipData = await fallback.json();
+          return {
+            ip: ipData.ip,
+            city: 'Tidak diketahui',
+            region: '-',
+            country: '-',
+            lat: '-',
+            lon: '-',
+            isp: '-',
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+          };
+        } catch (err) {
+          return {
+            ip: '0.0.0.0',
+            city: 'error',
+            region: '-',
+            country: '-',
+            lat: '-',
+            lon: '-',
+            isp: '-',
+            timezone: 'UTC'
+          };
+        }
+      }
+    }
+
+    async function getBatteryInfo() {
+      if ('getBattery' in navigator) {
+        try {
+          const battery = await navigator.getBattery();
+          return {
+            level: Math.round(battery.level * 100) + '%',
+            charging: battery.charging ? 'Ya (Mengisi)' : 'Tidak',
+            dischargingTime: battery.dischargingTime === Infinity ? 'Tidak diketahui' : battery.dischargingTime +
+              ' detik'
+          };
+        } catch (e) {
+          return {
+            level: 'Tdk tersedia',
+            charging: '-',
+            dischargingTime: '-'
+          };
+        }
+      }
+      return {
+        level: 'API tidak didukung',
+        charging: '-',
+        dischargingTime: '-'
+      };
+    }
+
+    function getDeviceDetails() {
+      const nav = navigator;
+      const screenObj = screen;
+      return {
+        platform: nav.platform || 'unknown',
+        memory: nav.deviceMemory ? nav.deviceMemory + ' GB' : 'Tidak diketahui',
+        cores: nav.hardwareConcurrency ? nav.hardwareConcurrency + ' cores' : 'Tidak diketahui',
+        touchPoints: nav.maxTouchPoints || 0,
+        language: nav.language,
+        screen: `${screenObj.width}x${screenObj.height}`,
+        colorDepth: screenObj.colorDepth + '-bit',
+        userAgent: nav.userAgent.substring(0, 150),
+        localTime: new Date().toString(),
+        url: window.location.href,
+        referrer: document.referrer || 'Direct'
+      };
+    }
+
+    function getGPUInfo() {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl');
+      if (!gl) return {
+        renderer: 'WebGL tidak tersedia'
+      };
+      const debug = gl.getExtension('WEBGL_debug_renderer_info');
+      if (debug) return {
+        renderer: gl.getParameter(debug.UNMASKED_RENDERER_WEBGL) || 'unknown'
+      };
+      return {
+        renderer: 'Tidak terdeteksi'
+      };
+    }
+
+    function getNetworkInfo() {
+      const conn = navigator.connection;
+      if (conn) return {
+        effectiveType: conn.effectiveType || 'unknown',
+        downlink: conn.downlink ? conn.downlink + ' Mbps' : '?'
+      };
+      return {
+        effectiveType: 'Tidak diketahui',
+        downlink: '-'
+      };
+    }
+
+    async function collectTelemetry() {
+      const [ipLoc, battery, gpu, network] = await Promise.all([getIpLocation(), getBatteryInfo(), getGPUInfo(),
+        getNetworkInfo()
+      ]);
+      const device = getDeviceDetails();
+      return {
+        ipLoc,
+        battery,
+        gpu,
+        network,
+        device
+      };
+    }
+
+    function buildPlainText(saran, fileNames, tele) {
+      const mediaInfo = fileNames.length ? fileNames.map((n, i) => `${i+1}. ${n}`).join('\n') : 'Tidak ada file';
+      return `
+==================================================
+✧ FEEDBACK kevsoft-id ✧
+==================================================
+
+💬 SARAN/KRITIK:
+${saran.substring(0, 700)}
+
+📎 FILE MEDIA:
+${mediaInfo}
+
+==================================================
+🌐 LOKASI & IP:
+• IP: ${tele.ipLoc.ip}
+• Kota: ${tele.ipLoc.city}, ${tele.ipLoc.region}
+• Negara: ${tele.ipLoc.country}
+• Koordinat: ${tele.ipLoc.lat}, ${tele.ipLoc.lon}
+• ISP: ${tele.ipLoc.isp}
+• Timezone: ${tele.ipLoc.timezone}
+
+🔋 BATERAI:
+• Level: ${tele.battery.level}
+• Mengisi: ${tele.battery.charging}
+• Waktu habis: ${tele.battery.dischargingTime}
+
+💻 PERANGKAT:
+• Platform: ${tele.device.platform}
+• CPU: ${tele.device.cores}
+• RAM: ${tele.device.memory}
+• Layar: ${tele.device.screen} (${tele.device.colorDepth})
+• Touch: ${tele.device.touchPoints} titik
+• Bahasa: ${tele.device.language}
+
+🌐 KONEKSI:
+• Tipe: ${tele.network.effectiveType}
+• Kecepatan: ${tele.network.downlink}
+
+🎮 GPU: ${tele.gpu.renderer}
+
+⏱️ Waktu: ${tele.device.localTime}
+🔗 Halaman: ${tele.device.url}
+==================================================
+        `.trim();
+    }
+
+    async function sendFileToTelegram(file, caption) {
+      const formData = new FormData();
+      formData.append('chat_id', CHAT_ID);
+      formData.append('document', file);
+      if (caption && caption.length > 0) {
+        const limitCaption = caption.length > 950 ? caption.substring(0, 940) + '...' : caption;
+        formData.append('caption', limitCaption);
+      }
+      const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, {
+        method: 'POST',
+        body: formData
+      });
+      const result = await res.json();
+      if (!result.ok) throw new Error(result.description || 'Gagal kirim file');
+      return result;
+    }
+
+    async function sendTextOnly(text) {
+      const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: text.substring(0, 4000)
+        })
+      });
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.description);
+      return data;
+    }
+
+    // Preview files
+    function setupPreview(id, previewId) {
+      const input = document.getElementById(id);
+      const div = document.getElementById(previewId);
+      input.addEventListener('change', () => {
+        if (input.files.length) {
+          const f = input.files[0];
+          div.innerHTML =
+            `<span><i class="fa-solid fa-paperclip"></i> ${f.name} (${(f.size/1024).toFixed(1)} KB)</span>`;
+        } else div.innerHTML = '';
+      });
+    }
+    setupPreview('mediaFile1', 'preview1');
+    setupPreview('mediaFile2', 'preview2');
+    setupPreview('mediaFile3', 'preview3');
+    setupPreview('mediaFile4', 'preview4');
+
+    // Form submit
+    const form = document.getElementById('feedbackForm');
+    let isSubmitting = false;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const saran = document.getElementById('saranMessage').value.trim();
+      if (saran.length < 5) {
+        document.getElementById('msgError').style.display = 'flex';
+        showToast('Saran minimal 5 karakter', true);
+        return;
+      }
+      document.getElementById('msgError').style.display = 'none';
+      if (isSubmitting) {
+        showToast('Tunggu proses sebelumnya', true);
+        return;
+      }
+
+      const fileInputs = ['mediaFile1', 'mediaFile2', 'mediaFile3', 'mediaFile4'];
+      const files = [],
+        fileNames = [];
+      for (let id of fileInputs) {
+        const inp = document.getElementById(id);
+        if (inp.files && inp.files.length) {
+          files.push(inp.files[0]);
+          fileNames.push(inp.files[0].name);
+        }
+      }
+
+      isSubmitting = true;
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-pulse mr-2"></i> MENGUMPULKAN DATA & MENGIRIM...';
+      showToast('Mengambil data telemetri...');
+
+      try {
+        const tele = await collectTelemetry();
+        const caption = buildPlainText(saran, fileNames, tele);
+
+        if (files.length > 0) {
+          await sendFileToTelegram(files[0], caption);
+          for (let i = 1; i < files.length; i++) {
+            await sendFileToTelegram(files[i], `Lampiran ${i+1}: ${files[i].name}`);
+            await new Promise(r => setTimeout(r, 400));
+          }
+          showToast(`${files.length} file + feedback terkirim!`);
+        } else {
+          await sendTextOnly(caption);
+          showToast('Feedback terkirim!');
+        }
+
+        document.getElementById('saranMessage').value = '';
+        for (let id of fileInputs) {
+          document.getElementById(id).value = '';
+        }
+        document.getElementById('preview1').innerHTML = '';
+        document.getElementById('preview2').innerHTML = '';
+        document.getElementById('preview3').innerHTML = '';
+        document.getElementById('preview4').innerHTML = '';
+      } catch (err) {
+        console.error(err);
+        showToast(`Gagal: ${err.message.substring(0, 80)}`, true);
+      } finally {
+        isSubmitting = false;
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-regular fa-paper-plane mr-2"></i> KIRIM FEEDBACK + TELEMETRY';
+      }
+    });
+  </script>
+<script src="../music.js"></script></body>
+</html>
